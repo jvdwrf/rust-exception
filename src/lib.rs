@@ -196,13 +196,21 @@ pub impl<T> ExceptionResult<T> {
     }
 }
 
-// #[ext(ResultExt)]
-// pub impl<T, E> Result<T, E> {
-//     #[inline]
-//     fn into_exception(self) -> ExceptionResult<T, E> {
-//         self.map_err(Exception::Recoverable)
-//     }
-// }
+#[ext(ResultExt)]
+pub impl<T, E> Result<T, E> {
+    #[inline]
+    fn into_recoverable(self) -> ExceptionResult<T, E> {
+        self.map_err(Exception::Recoverable)
+    }
+
+    #[inline]
+    fn into_unrecoverable(self) -> ExceptionResult<T>
+    where
+        E: Into<eyre::Report>,
+    {
+        self.map_err(|e| Exception::Unrecoverable(e.into()))
+    }
+}
 
 pub trait Finalize: Sized {
     type Output<T>;
