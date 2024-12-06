@@ -1,11 +1,10 @@
 [package]
-name = "app_error"
+name = "exception"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-derive_more = { version = "1.0.0", features = ["full"] }
-easy-ext = "1.0.2"
-enum-iterator = "2.1.0"
-eyre = "0.6.12"
-thiserror = "1.0.63"
+derive_more = { version = "1", features = ["full"] }
+easy-ext = "1"
+eyre = "0.6"
+thiserror = "2"
