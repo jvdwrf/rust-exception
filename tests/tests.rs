@@ -1,4 +1,4 @@
-use app_error::{Exception, ExceptionResult, ExceptionResultExt};
+use exception::{Exception, ExceptionResult, ExceptionResultExt};
 use eyre::Context;
 
 #[derive(Debug, thiserror::Error)]

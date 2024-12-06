@@ -203,3 +203,25 @@ pub impl<T> ExceptionResult<T> {
 //         self.map_err(Exception::Recoverable)
 //     }
 // }
+
+pub trait Finalize: Sized {
+    type Output<T>;
+
+    fn finalize<T>(res: Result<T, Self>) -> Self::Output<T>;
+}
+
+impl<E: RecoverableError> Finalize for E {
+    type Output<T> = Result<T, E>;
+
+    fn finalize<T>(res: Result<T, E>) -> Result<T, E> {
+        res
+    }
+}
+
+impl Finalize for Unrecoverable {
+    type Output<T> = T;
+
+    fn finalize<T>(res: Result<T, Unrecoverable>) -> T {
+        res.expect("NoCustomBackendError can't be created")
+    }
+}
