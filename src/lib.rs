@@ -199,12 +199,12 @@ pub impl<T> ExceptionResult<T> {
 #[ext(ResultExt)]
 pub impl<T, E> Result<T, E> {
     #[inline]
-    fn into_recoverable(self) -> ExceptionResult<T, E> {
+    fn recoverable(self) -> ExceptionResult<T, E> {
         self.map_err(Exception::Recoverable)
     }
 
     #[inline]
-    fn into_unrecoverable(self) -> ExceptionResult<T>
+    fn unrecoverable(self) -> ExceptionResult<T>
     where
         E: Into<eyre::Report>,
     {
